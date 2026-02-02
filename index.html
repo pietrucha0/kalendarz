@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PinkScheduler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* TAILWINDCSS REQUIREMENT 6: Container Query (Native CSS implementation for guaranteed support) */
+      .cq-wrapper {
+        container-type: inline-size;
+        container-name: card-container;
+      }
+      
+      @container card-container (min-width: 400px) {
+        .cq-target {
+          flex-direction: row;
+          align-items: center;
+        }
+        .cq-target-text {
+          font-size: 1.25rem;
+        }
+      }
+
+      /* Custom animations */
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fade-in 0.3s ease-out forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "@radix-ui/react-dialog": "https://esm.sh/@radix-ui/react-dialog@1.0.5?external=react,react-dom",
+    "react-hook-form": "https://esm.sh/react-hook-form@7.51.3?external=react",
+    "@hookform/resolvers/zod": "https://esm.sh/@hookform/resolvers@3.3.4/zod?external=react,react-hook-form",
+    "recharts": "https://esm.sh/recharts@2.12.5?external=react,react-dom",
+    "lucide-react": "https://esm.sh/lucide-react@0.368.0?external=react",
+    "clsx": "https://esm.sh/clsx@2.1.0",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.2.2",
+    "zod": "https://esm.sh/zod@3.22.4",
+    "@hookform/resolvers/": "https://esm.sh/@hookform/resolvers@^5.2.2/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
