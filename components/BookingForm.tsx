@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookingSchema, type BookingFormValues } from "../lib/validation";
@@ -10,6 +10,8 @@ import { Steps } from "../types";
 import { Check, User, Clock, Calendar as CalendarIcon, ShieldCheck } from "lucide-react";
 import { Tooltip } from "./ui/tooltip";
 import { useBookings } from "../context/BookingContext";
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 const AVAILABLE_SLOTS = ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM"];
 
@@ -33,11 +35,12 @@ const RecaptchaMock = ({ value, onChange, error }: { value: boolean; onChange: (
   </div>
 );
 
+
 export const BookingForm = () => {
   const [step, setStep] = useState<Steps>(Steps.DATE_SELECTION);
   const [showSuccess, setShowSuccess] = useState(false);
   const { addBooking, isSlotTaken } = useBookings();
-
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   // REACT HOOK FORM REQUIREMENT 1 & 2: useForm + Zod Resolver
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -48,7 +51,6 @@ export const BookingForm = () => {
       phone: "",
       agreedToTerms: false,
       agreedToNotifications: false,
-      isHuman: false,
       date: undefined,
       slot: "",
     },
@@ -94,7 +96,6 @@ export const BookingForm = () => {
       phone: "",
       agreedToTerms: false,
       agreedToNotifications: false,
-      isHuman: false,
       date: undefined,
       slot: "",
     });
@@ -238,6 +239,24 @@ export const BookingForm = () => {
                   />
                   <Label htmlFor="notifications">I agree to receive booking details and reminders at the email address provided.</Label>
                 </div>
+                <div>
+                  <Controller
+                    control={control}
+                    name="captchaToken"
+                    render={({ field }) => (
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                        onChange={(value) => field.onChange(value)} // Przekazuje token do react-hook-form
+                      />
+                    )}
+                  />
+                  {errors.captchaToken && (
+                    <p className="text-xs text-red-500 font-medium">
+                      {errors.captchaToken.message}
+                    </p>
+                  )}
+                </div>
                 {(errors.agreedToTerms || errors.agreedToNotifications) && (
                   <p className="text-xs text-red-500">
                     <p className="text-xs text-red-500 font-medium animate-in fade-in slide-in-from-top-1">
@@ -247,16 +266,7 @@ export const BookingForm = () => {
                 )}
               </div>
 
-              {/* RECAPTCHA */}
-              <div className="pt-2">
-                <Controller
-                  control={control}
-                  name="isHuman"
-                  render={({ field }) => (
-                    <RecaptchaMock value={field.value} onChange={field.onChange} error={errors.isHuman?.message} />
-                  )}
-                />
-              </div>
+
             </CardContent>
           </Card>
         )}

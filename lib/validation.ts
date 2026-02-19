@@ -19,6 +19,7 @@ export const bookingSchema = z.object({
     message: "Please confirm you are not a robot.",
   }),
   notes: z.string().optional(),
+  captchaToken: z.string().min(1, "Proszę potwierdzić, że nie jesteś robotem")
 });
 
 export type BookingFormValues = z.infer<typeof bookingSchema>;
