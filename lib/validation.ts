@@ -12,6 +12,9 @@ export const bookingSchema = z.object({
   agreedToTerms: z.boolean().refine((val) => val === true, {
     message: "You must agree to the terms and conditions.",
   }),
+  agreedToNotifications: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the terms and conditions."
+  }),
   isHuman: z.boolean().refine((val) => val === true, {
     message: "Please confirm you are not a robot.",
   }),

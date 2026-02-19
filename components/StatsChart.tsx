@@ -14,11 +14,11 @@ const data = [
 
 export const StatsChart = () => {
   return (
-    <Card className="w-full h-[350px]">
+    <Card className="w-full h-full">
       <CardHeader>
         <CardTitle>Weekly Booking Activity</CardTitle>
       </CardHeader>
-      <CardContent className="h-[250px] w-full">
+      <CardContent className="h-[500px] w-full mt-5">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
@@ -31,25 +31,25 @@ export const StatsChart = () => {
           >
             <defs>
               <linearGradient id="colorBookings" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ec4899" stopOpacity={0.8} />
+                <stop offset="5%" stopColor="#ff69b4" stopOpacity={0.8} />
                 <stop offset="95%" stopColor="#ec4899" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#fce7f3" />
-            <XAxis 
-                dataKey="name" 
-                tickLine={false} 
-                axisLine={false} 
-                tick={{ fill: '#831843', fontSize: 12 }} 
+            <XAxis
+              dataKey="name"
+              tickLine={false}
+              axisLine={false}
+              tick={{ fill: '#831843', fontSize: 12 }}
             />
-            <YAxis 
-                tickLine={false} 
-                axisLine={false} 
-                tick={{ fill: '#831843', fontSize: 12 }} 
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tick={{ fill: '#831843', fontSize: 12 }}
             />
-            <Tooltip 
-                contentStyle={{ backgroundColor: '#fff', borderColor: '#fbcfe8', borderRadius: '8px' }}
-                itemStyle={{ color: '#db2777' }}
+            <Tooltip
+              contentStyle={{ backgroundColor: '#fff', borderColor: '#fbcfe8', borderRadius: '8px' }}
+              itemStyle={{ color: '#db2777' }}
             />
             <Area
               type="monotone"

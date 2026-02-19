@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PinkScheduler</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* TAILWINDCSS REQUIREMENT 6: Container Query (Native CSS implementation for guaranteed support) */
-      .cq-wrapper {
-        container-type: inline-size;
-        container-name: card-container;
-      }
-      
-      @container card-container (min-width: 400px) {
-        .cq-target {
-          flex-direction: row;
-          align-items: center;
-        }
-        .cq-target-text {
-          font-size: 1.25rem;
-        }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* TAILWINDCSS REQUIREMENT 6: Container Query (Native CSS implementation for guaranteed support) */
+    .cq-wrapper {
+      container-type: inline-size;
+      container-name: card-container;
+    }
+
+    @container card-container (min-width: 400px) {
+      .cq-target {
+        flex-direction: row;
+        align-items: center;
       }
 
-      /* Custom animations */
-      @keyframes fade-in {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+      .cq-target-text {
+        font-size: 1.25rem;
       }
-      .animate-fade-in {
-        animation: fade-in 0.3s ease-out forwards;
+    }
+
+    /* Custom animations */
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
       }
-    </style>
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.3s ease-out forwards;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -50,10 +60,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
