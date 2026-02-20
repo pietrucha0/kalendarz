@@ -70,18 +70,21 @@ export const BookingForm = () => {
   const selectedSlot = watch("slot");
 
   const nextStep = async () => {
-    let valid = false;
+    let fieldsToValidate: any[] = [];
+
     if (step === Steps.DATE_SELECTION) {
-      valid = await trigger(["date", "slot"]);
+      fieldsToValidate = ["date", "slot"];
     } else if (step === Steps.DETAILS_FORM) {
-      valid = await trigger();
+      // Musimy sprawdzić wszystkie pola z kroku 2 przed przejściem do kroku 3
+      fieldsToValidate = ["name", "email", "phone", "agreedToTerms", "agreedToNotifications", "captchaToken"];
     }
 
-    if (valid) {
+    const isStepValid = await trigger(fieldsToValidate);
+
+    if (isStepValid) {
       setStep((prev) => prev + 1);
     }
   };
-
   const prevStep = () => setStep((prev) => prev - 1);
 
   const onSubmit = (data: BookingFormValues) => {
